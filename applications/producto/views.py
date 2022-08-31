@@ -23,6 +23,7 @@ from applications.utils import render_to_pdf
 class ProductListView(AlmacenPermisoMixin, ListView):
     template_name = "producto/lista.html"
     context_object_name = 'productos'
+    paginate_by = 10
 
     def get_queryset(self):
         kword = self.request.GET.get("kword", '')

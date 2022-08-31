@@ -14,14 +14,16 @@ class ProductManager(models.Manager):
         )
         # verificamos en que orden se solicita
         if order == 'date':
-            # ordenar por fecha
+            # ordenar por fecha ascendente
             return consulta.order_by('created')
         elif order == 'name':
             # ordenar por nombre
             return consulta.order_by('name')
         elif order == 'stok':
+            # ordenar por stok
             return consulta.order_by('count')
         else:
+            # ordenar por el order de creación descendente
             return consulta.order_by('-created')
     
     def update_stok_ventas_producto(self, venta_id):
