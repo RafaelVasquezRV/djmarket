@@ -7,7 +7,7 @@
 <div class="grid-x grid-margin-x">
   <form class="cell grid-x grid-margin-x" method="GET">
     <div class="cell input-group">
-      <span class="input-group-label">Codigo o Nombre</span>
+      <span class="input-group-label">Código o Nombre</span>
       <input class="input-group-field" type="text" id="kword" name="kword" 
         value="{{request.GET.kword}}"
         placeholder="Codigo o nombre ..."
@@ -18,7 +18,7 @@
         <input type="date" name="date_start" id="date_start" class="cell medium-4">
         <input type="date" name="date_end" id="date_end" class="cell medium-4">
         <p class="cell">Proveedor o Marca:</p>
-        <input type="text" name="provide" id="provider" class="cell medium-4" placeholder="Proveedor...">
+        <input type="text" name="provider" id="provider" class="cell medium-4" placeholder="Proveedor...">
         <input type="text" name="marca" id="marca" class="cell medium-4" placeholder="Marca...">
         <button class="cell medium-4 button success">Filtrar</button>
     </div>
@@ -36,6 +36,7 @@
           <a href="{{request.get_full_path}}&order=name"> Nombres</a>
           {% endif %}
         </th>
+        <th>Marca</th>
         <th>Precio Venta</th>
         <th>Precio Compra</th>
         <th>
@@ -53,6 +54,7 @@
           {% endif %}
         </th>
         <th>Vencimiento</th>
+        <th>Proveedor</th>
         <th>Acciones</th>
       </thead>
       <tbody>
@@ -60,11 +62,13 @@
           <tr>
             <td>{{producto.barcode}}</td>
             <td>{{producto.name}}</td>
+            <td>{{producto.marca}}</td>
             <td>{{producto.sale_price}}</td>
             <td>{{producto.purchase_price}}</td>
             <td>{{producto.count}}</td>
             <td>{{producto.num_sale}}</td>
             <td>{{producto.due_date}}</td>
+            <td>{{producto.provider}}</td>
             <td>
               <a href="{% url 'producto_app:producto-detail' producto.id %}" class="button warning"><i class="fi-eye"></i></a>
             </td>
