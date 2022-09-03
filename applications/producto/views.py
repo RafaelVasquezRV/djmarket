@@ -32,7 +32,6 @@ class ProductListView(AlmacenPermisoMixin, ListView):
         return queryset
 
 
-
 class ProductCreateView(AlmacenPermisoMixin, CreateView):
     template_name = "producto/form_producto.html"
     form_class = ProductForm

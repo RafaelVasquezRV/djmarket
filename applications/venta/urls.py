@@ -11,9 +11,14 @@ urlpatterns = [
         name='venta-index',
     ),
     path(
-        'carshop/update/<pk>/', 
-        views.CarShopUpdateView.as_view(),
-        name='carshop-update',
+        'carshop/update_plus/<pk>/', 
+        views.CarShopUpdatePlusView.as_view(),
+        name='carshop-update_plus',
+    ),
+    path(
+        'carshop/update_menos/<pk>/', 
+        views.CarShopUpdateMenosView.as_view(),
+        name='carshop-update_menos',
     ),
     path(
         'carshop/delete/<pk>/', 

@@ -1,4 +1,5 @@
 # django
+from genericpath import exists
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy, reverse
@@ -39,6 +40,24 @@ class AddCarView(VentasPermisoMixin, FormView):
     def form_valid(self, form):
         barcode = form.cleaned_data['barcode']
         count = form.cleaned_data['count']
+        
+        # Proceso de verificación del botón agregar con el stok
+        p = Product.objects.get(barcode=barcode)
+        
+        try:
+            v = CarShop.objects.get(barcode=barcode)
+        except:
+            v = 0
+
+        if not v == 0:
+            if v.count > p.count:
+                count = p.count - v.count
+            else:
+                v1 = v.count + count
+                if v1 > p.count:
+                    count = p.count - v.count
+        # Fin del proceso de verificación del botón agregar con el stok
+        
         obj, created = CarShop.objects.get_or_create(
             barcode=barcode,
             defaults={
@@ -51,10 +70,26 @@ class AddCarView(VentasPermisoMixin, FormView):
             obj.count = obj.count + count
             obj.save()
         return super(AddCarView, self).form_valid(form)
+
+
+class CarShopUpdatePlusView(VentasPermisoMixin, View):
+    """ agrega en 1 la cantidad en un carshop """
     
+    def post(self, request, *args, **kwargs):
+        car = CarShop.objects.get(id=self.kwargs['pk'])
+
+        if not car.count > car.count:
+            car.count = car.count + 1
+            car.save()
+        #
+        return HttpResponseRedirect(
+            reverse(
+                'venta_app:venta-index'
+            )
+        )
 
 
-class CarShopUpdateView(VentasPermisoMixin, View):
+class CarShopUpdateMenosView(VentasPermisoMixin, View):
     """ quita en 1 la cantidad en un carshop """
 
     def post(self, request, *args, **kwargs):
