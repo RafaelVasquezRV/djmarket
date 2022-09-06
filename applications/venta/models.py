@@ -82,8 +82,6 @@ class Sale(TimeStampedModel):
     def __str__(self):
         return 'Nº [' + str(self.id) + '] - ' + str(self.date_sale)
 
-
-
 class SaleDetail(TimeStampedModel):
     """Modelo que representa a una venta en detalle"""
 
